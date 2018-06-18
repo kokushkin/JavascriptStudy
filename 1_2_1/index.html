@@ -1,0 +1,51 @@
+<html>
+
+<head>
+</head>
+
+<body onload="timer()">
+        <script>
+                // window.onload = function () {
+                //     // Получает текущую дату и время
+                //     d = new Date();
+        
+                //     // Показывает дату
+                //     document.write('Сегодня: ' + d.toLocaleDateString() + '. ');
+        
+                //     // Показывает время
+                //     document.write('Время: ' + d.toLocaleTimeString());
+        
+                //     // День недели
+                //     var dayOfWeek = d.getDay();
+        
+                //     // Сегодня выходной?                 
+                //     var weekend = (dayOfWeek == 0) || (dayOfWeek == 6);
+                // }
+                function timer() {
+                    // Находим элемент h1 в документе
+                    h1 = document.getElementsByTagName('h1')[0];
+        
+                    // Устанавливаем дату
+                    var date = new Date();
+
+                    var str1 = date.toLocaleDateString()
+                    var str2 = date.toLocaleString();
+        
+                    var hours = date.getHours();
+                    var minutes = date.getMinutes();
+                    var seconds = date.getSeconds();
+        
+                    if (hours < 10) hours = "0" + hours;	   // Для удобства отображения
+                    if (minutes < 10) minutes = "0" + minutes;
+                    if (seconds < 10) seconds = "0" + seconds;
+        
+                    h1.innerHTML = hours + ":" + minutes + ":" + seconds;
+        
+                    // Вызываем функцию раз в одну секунду
+                    setTimeout('timer()', 1000);
+                }
+            </script>
+    <h1></h1>
+</body>
+
+</html>
