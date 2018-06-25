@@ -1,0 +1,17 @@
+<script>
+    // Создать многомерный массив
+    var table = new Array(10);		// В таблице 10 строк
+
+    for (var i = 0; i < table.length; i++)
+        table[i] = new Array(10);		// В каждой строке 10 столбцов
+
+    // Инициализировать массив и вывести на консоль
+    for (var row = 0, str = ''; row < table.length; row++) {
+        for (var col = 0; col < table[row].length; col++) {
+            table[row][col] = (row + 1) * (col + 1);
+            str += table[row][col] + '  ';
+        }
+        console.log(str + '\n');
+        str = '';
+    }
+</script>

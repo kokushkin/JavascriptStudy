@@ -1,0 +1,58 @@
+<script>
+    var pattern = /\d{2,4}/;		// Соответствует числу, содержащему от двух до четырех цифр
+    pattern = /\w{3}\d?/;		// Соответствует в точности трем символам слова и одной необязательной цифре
+    pattern = /\s+java\s+/;		// Соответствует слову "java" с одним или более пробелами // до и после него
+    pattern = /[^(]*/;			// Соответствует нулю или более символам, отличным от открывающей круглой скобки
+
+
+    var result = "JavaScript".search(/script/i);    // 4
+
+    // Независимо от регистра символов заменяем словом в нужном регистре
+    var result = "javascript".replace(/JavaScript/ig, "JavaScript");
+
+
+    // Цитата - это кавычка, за которой следует любое число символов,
+    // отличных от кавычек (их мы запоминаем), за этими символами
+    // следует еще одна кавычка
+    var quote = /"([^"]*)"/g;
+
+    // Заменяем прямые кавычки типографскими и оставляем без изменений  «$1»
+    // содержимое цитаты, хранящееся в $1
+    var text = '"JavaScript" - интерпретируемый язык программирования.';
+    var result = text.replace(quote, "«$1»");			// «JavaScript» - интерпретируемый язык программирования.
+
+
+    // вернет ["1", "2", "3"]
+    var result = "1 плюс 2 равно 3".match(/\d+/g);
+
+
+
+    var url = /(\w+):\/\/([\w.]+)\/(\S*)/;
+    var text = "Посетите наш сайт http://www.professorweb.ru/index.php";
+
+    var result = text.match(url);
+    if (result != null) {
+        var fullurl = result[0];		// Содержит "http://www.professorweb.ru/index.php"
+        var protocol = result[1];		// Содержит "http"
+        var host = result[2];			// Содержит "www.professorweb.ru"
+        var path = result[3];			// Содержит "index.php"
+    }
+
+        
+    result = "1, 2, 3 , 4 , 5".split(/\s*,\s*/);		// Вернет ["1","2","3","4","5"]
+
+
+    //REG EXP Object
+
+    var pattern = /Java/g;
+    var text = "JavaScript - это более забавная штука, чем Java!";
+    var result;
+
+    while ((result = pattern.exec(text)) != null) {
+        console.log("Найдено '" + result[0] + "'" +
+            " в позиции " + result.index +
+            "; следующий поиск начнется с " + pattern.lastIndex);
+    }
+
+
+</script>
