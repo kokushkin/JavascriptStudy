@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<!-- Это файл HTML5 -->
+<html>
+<!-- Корневой элемент -->
+
+<head>
+    <!-- Заголовок, здесь располагаются сценарии и стили -->
+    <meta charset="utf-8">
+    <title>Простые часы</title>
+    <script>			// Сценарий на JavaScript
+
+        /* 
+           drag() - перетаскивание абсолютно позиционированных HTML-элементов.
+           Эта функция должна вызываться
+           из обработчика события onmousedown. Последующие события mousemove будут вызывать
+           перемещение указанного элемента. Событие mouseup будет завершать перемещение.
+           Эта реализация действует в обеих моделях событий, стандартной и IE.
+           Использует функцию getScrollOffsets().
+           Аргументы: 
+              elementToDrag: элемент, принявший событие mousedown или содержащий его элемент.
+           Этот элемент должен иметь абсолютное позиционирование. Значения его свойств style.left
+           и style.top будут изменяться при перемещении указателя мыши пользователем.
+              event: объект Event, полученный обработчиком события mousedown. 
+        */
+
+        function drag(elementToDrag, event) {
+            // Преобразовать начальные координаты указателя мыши в координаты документа 
+            var scroll = getScrollOffsets(); 		// Вспомогательная функция, объявленная ниже
+            var startX = event.clientX + scroll.x;
+            var startY = event.clientY + scroll.y;
+
+            // Первоначальные координаты (относительно начала документа) элемента, который 
+            // будет перемещаться. Так как elementToDrag имеет абсолютное позиционирование, 
+            // предполагается, что его свойство offsetParent ссылается на тело документа. 
+            var origX = elementToDrag.offsetLeft;
+            var origY = elementToDrag.offsetTop;
+
+            // Найти расстояние между точкой события mousedown и верхним левым углом элемента. 
+            // Это расстояние будет учитываться при перемещении указателя мыши. 
+            var deltaX = startX - origX;
+            var deltaY = startY - origY;
+
+            // Зарегистрировать обработчики событий mousemove и mouseup,
+            // которые последуют за событием mousedown. 
+            if (document.addEventListener) {
+                // Стандартная модель событий 
+                // Зарегистрировать перехватывающие обработчики в документе
+                document.addEventListener("mousemove", moveHandler, true);
+                document.addEventListener("mouseup", upHandler, true);
+            }
+            else if (document.attachEvent) { // Модель событий IE для IE5-8 
+                // В модели событий IE перехват событий осуществляется вызовом
+                // метода setCapture() элемента. 
+                elementToDrag.setCapture();
+                elementToDrag.attachEvent("onmousemove", moveHandler);
+                elementToDrag.attachEvent("onmouseup", upHandler);
+
+                // Интерпретировать потерю перехвата событий мыши как событие mouseup 
+                elementToDrag.attachEvent("onlosecapture", upHandler);
+            }
+
+            // Это событие обработано и не должно передаваться другим обработчикам 
+            if (event.stopPropagation)
+                event.stopPropagation(); 	// Стандартная модель 
+            else event.cancelBubble = true;	// IE
+
+            // Предотвратить выполнение действий, предусмотренных по умолчанию. 
+            if (event.preventDefault) event.preventDefault();	// Стандартная модель
+            else event.returnValue = false;	// IE
+
+            /*
+               Этот обработчик перехватывает события mousemove, возникающие
+               в процессе перетаскивания элемента. Он отвечает за перемещение элемента. */
+            function moveHandler(e) {
+                if (!e) e = window.event;	// Модель событий IE
+
+                // Переместить элемент в позицию указателя мыши с учетом позиций 
+                // полос прокрутки и смещений относительно начального щелчка. 
+                var scroll = getScrollOffsets();
+                elementToDrag.style.left = (e.clientX + scroll.x - deltaX) + "px";
+                elementToDrag.style.top = (e.clientY + scroll.y - deltaY) + "px";
+
+                // И прервать дальнейшее распространение события.
+                if (e.stopPropagation) e.stopPropagation(); // Стандартная модель 
+                else e.cancelBubble = true;	// IE
+            }
+
+            /*
+               Этот обработчик перехватывает заключительное событие mouseup,
+               которое завершает операцию перетаскивания. */
+            function upHandler(e) {
+                if (!e) e = window.event;	// Модель событий IE
+
+                // Удалить перехватывающие обработчики событий. 
+                if (document.removeEventListener) { // Модель событий DOM 
+                    document.removeEventListener("mouseup", upHandler, true);
+                    document.removeEventListener("mousemove", moveHandler, true);
+                }
+                else if (document.detachEvent) {	// Модель событий IE 5+
+                    elementToDrag.detachEvent("onlosecapture", upHandler);
+                    elementToDrag.detachEvent("onmouseup", upHandler);
+                    elementToDrag.detachEvent("onmousemove", moveHandler);
+                    elementToDrag.releaseCapture();
+                }
+
+                // И прервать дальнейшее распространение события.
+                if (e.stopPropagation) e.stopPropagation(); // Стандартная модель 
+                else e.cancelBubble = true;	// IE
+            }
+        }
+
+
+        // Возвращает текущие позиции полос прокрутки в виде свойств x и y объекта 
+        function getScrollOffsets(w) {
+            // Использовать указанное окно или текущее, 
+            // если функция вызвана без аргумента 
+            w = w || window;
+
+            // Следующий способ работает во всех браузерах, кроме IE версии 8 и ниже 
+            if (w.pageXOffset != null)
+                return { x: w.pageXOffset, y: w.pageYOffset };
+
+            // Для IE (и других браузеров) в стандартном режиме
+            var d = w.document;
+            if (document.compatMode == "CSSICompat")
+                return { x: d.documentElement.scrollLeft, y: d.documentElement.scrollTop };
+
+            // Для браузеров в режиме совместимости
+            return { x: d.body.scrollLeft, y: d.body.scrollTop };
+        }
+
+    </script>
+</head>
+
+<body>
+    <!-- Перетаскиваемый элемент -->
+    <div style="position:absolute; left:100px; top:100px; width:250px; 
+    background-color: white; border: solid black;">
+        <!-- "Заголовок" окна. Обратите внимание на атрибут onmousedown. -->
+        <div style="background color: gray; border bottom: dotted black; 
+        padding: 3px; font-family: sans-serif; font-weight: bold;" onmousedown="drag(this.parentNode, event);"> Перетащи меня
+            <!-- Содержимое заголовка -->
+        </div>
+
+        <!-- Содержимое перетаскиваемого элемента -->
+        <p>Это тест. Проверка, проверка, проверка.</p>
+        <p>Тест</p>
+        <p>Тест</p>
+    </div>
+
+</body>
+
+</html>

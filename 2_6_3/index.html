@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!-- Это файл HTML5 -->
+<html>
+<!-- Корневой элемент -->
+
+<head>
+    <!-- Заголовок, здесь располагаются сценарии и стили -->
+    <meta charset="utf-8">
+    <title>2_6_3</title>
+    <script src="keymap.js"></script>
+    <script>			// Сценарий на JavaScript
+
+        window.onload = function () {
+            var keymap = new Keymap;				// Создать новый объект Keymap
+
+            keymap.bind("ctrl+a",					// Комбинация Ctrl+A
+                function (event, keyid) {
+                    alert("Вы нажали: " + keyid)
+                });
+
+            // Еще одна привязка Ctrl + Enter
+            keymap.bind("ctrl+enter",
+                function (event, keyid) {
+                    alert("Вы нажали: " + keyid)
+                });
+
+            keymap.install(document.body);			// Устанавливаем объект Keymap для всего документа
+        };
+    </script>
+</head>
+
+<body>
+    <form action="#">
+        <p>
+            <i>Нажимаем клавиши.</i>
+        </p>
+    </form>
+</body>
+
+</html>

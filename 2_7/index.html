@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<!-- Это файл HTML5 -->
+<html>
+<!-- Корневой элемент -->
+
+<head>
+    <!-- Заголовок, здесь располагаются сценарии и стили -->
+    <meta charset="utf-8">
+    <title>2_6_3</title>
+    <script>			// Сценарий на JavaScript
+
+
+        // Сохраняет пару имя/значение в виде cookie, кодируя значение с помощью 
+        // encodeURIComponent(), чтобы экранировать точки с запятой, запятые и пробелы. 
+        // Если в параметре daysToLive передается число, атрибут max-age 
+        // устанавливается так, что срок хранения cookie истекает через 
+        // указанное число дней. Если передать значение 0, cookie будет удален
+        function setCookie(name, value, daysToLive) {
+            var cookie = name + "=" + encodeURIComponent(value);
+
+            if (typeof daysToLive === "number")
+                cookie += "; max-age=" + (daysToLive * 60 * 60 * 24);
+            else
+                throw new Error('Параметр daysToLive должен быть числом.');
+
+            document.cookie = cookie;
+        }
+
+        // Возвращает cookies документа в виде объекта с парами имя/значение. 
+        // Предполагается, что значения cookie кодируются с помощью 
+        // функции encodeURIComponent()
+        function getCookies() {
+            // Возвращаемый объект
+            var cookies = {};
+
+            // Получить все cookies в одной строке
+            var all = document.cookie;
+
+            // Если получена пустая строка, вернуть пустой объект
+            if (all === "")
+                return cookies;
+
+            // Разбить на пары имя/значение
+            var list = all.split("; ");
+            for (var i = 0; i < list.length; i++) {
+                // Для каждого cookie 
+                var cookie = list[i];
+
+                // Отыскать первый знак =
+                var p = cookie.indexOf("=");
+
+                // Получить имя cookie
+                var name = cookie.substring(0, p);
+
+                // Получить значение cookie
+                var value = cookie.substring(p + 1);
+
+                // Декодировать значение
+                value = decodeURIComponent(value);
+
+                // Сохранить имя и значение в объекте
+                cookies[name] = value;
+            }
+
+            return cookies;
+        }
+
+        function saveCooka() {
+            var cookValue = document.getElementById("cook").value;
+            setCookie("mycooka", cookValue, 1);
+        }
+
+        window.onload = function() {
+            var cookies = getCookies();
+            document.getElementById("cook").value = cookies["mycooka"];            
+        }
+
+    </script>
+</head>
+
+<body>
+    <form action="#">
+        <p>
+            <i>Кука.</i>
+        </p>        
+        <input id="cook">
+        <button onclick="saveCooka()">Set</button>
+    </form>
+</body>
+
+</html>
