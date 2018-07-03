@@ -7,47 +7,64 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="styles.css" />
     <script>
-        // // Обработчик события загрузки страницы
-        // window.onload = function () {
-        //     // Найти все нечетные элементы img в документе,
-        //     // добавить обработчики событий наведения курсора мыши
-        //     // и добавить отладочную информацию на консоль
-        //     var oddImages = document.getElementsByTagName('img');
-        //     for (var i = 0; i < oddImages.length; i++) {
-        //         if (i % 2 != 0) {
-        //             // Для современных браузеров
-        //             if (document.addEventListener) {
-        //                 oddImages[i].addEventListener('mouseover', mouseOverHandler, false);
-        //                 oddImages[i].addEventListener('mouseout', mouseOutHandler, false);
-        //             }
-        //         }
-        //     }
 
-        //     // Обработчики событий
-        //     function mouseOverHandler(e) {
-        //         e = e || window.event;
-        //         var target = e.target || e.srcElement;
-        //         target.style.cssText = "opacity:0.5";
-        //         console.log('Вы навели мышь на элемент <img src="' + target.src + '">');
-        //     }
+        $(function () {
 
-        //     function mouseOutHandler(e) {
-        //         e = e || window.event;
-        //         var target = e.target || e.srcElement;
-        //         target.style.cssText = "opacity:1";
-        //         console.log('Вы убрали мышь с элемента <img src="' + target.src + '">');
-        //     }
-        // };
+            var newElems = $('<div class="dcell"><img src="http://professorweb.ru/downloads/jquery/lily.png"/></div>');
 
-        $(document).ready(function (e) {
-            $("img:odd").mouseenter(function (e) {
-                $(this).css("opacity", 0.5);
-                console.log('Вы навели мышь на элемент <img src="' + $(this).attr('src') + '">');
-            }).mouseout(function (e) {
-                $(this).css("opacity", 1.0);
-                console.log('Вы убрали мышь с элемента <img src="' + $(this).attr('src') + '">');
+            newElems.each(function (index, elem) {
+                console.log("Новый элемент: " + elem.tagName + " " + elem.className);
             });
+
+            newElems.children().each(function (index, elem) {
+                console.log("Дочерний элемент: " + elem.tagName + " " + elem.src);
+            });
+
         });
+
+
+
+
+        $(function () {
+
+            var newElems = $('div.dcell').clone();
+
+
+            newElems.each(function (index, elem) {
+                console.log("Новый элемент: " + elem.tagName + " " + elem.className);
+            });
+
+            newElems.children('img').each(function (index, elem) {
+                console.log("Дочерний элемент: " + elem.tagName + " " + elem.src);
+            });
+
+        });
+
+
+
+
+        $(function () {
+
+            var divElem = document.createElement("div");
+            divElem.classList.add("dcell");
+
+            var imgElem = document.createElement("img");
+            imgElem.src = "http://professorweb.ru/downloads/jquery/lily.png";
+
+            divElem.appendChild(imgElem);
+
+            var newElems = $(divElem);
+
+            newElems.each(function (index, elem) {
+                console.log("Новый элемент: " + elem.tagName + " " + elem.className);
+            });
+
+            newElems.children('img').each(function (index, elem) {
+                console.log("Дочерний элемент: " + elem.tagName + " " + elem.src);
+            });
+
+        });
+
     </script>
 </head>
 

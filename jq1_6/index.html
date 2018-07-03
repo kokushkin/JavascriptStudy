@@ -1,0 +1,168 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Библиотека jQuery</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <script>
+        // $(function () {
+
+        //     var newElems = $("<div class='dcell'></div>")
+        //         .append("<img src='http://professorweb.ru/downloads/jquery/lily.png'/>")
+        //         .append("<label for='lily'>Лилии:</label>")
+        //         .append("<input name='lily' value='0' required />");
+
+        //     newElems.css("border", "thick solid red");
+
+        //     $('#row1').append(newElems);
+
+        // });
+
+
+        // $(function () {
+
+        //     var orchidElems = $("<div class='dcell'/>")
+        //         .append("<img src='http://professorweb.ru/downloads/jquery/orchid.png'/>")
+        //         .append("<label for='orchid'>Орхидея:</label>")
+        //         .append("<input name='orchid' value='0' required />");
+
+        //     var newElems = $("<div class='dcell'/>")
+        //         .append("<img src='http://professorweb.ru/downloads/jquery/lily.png'/>")
+        //         .append("<label for='lily'>Лилия:</label>")
+        //         .append("<input name='lily' value='0' required />").add(orchidElems);
+
+        //     newElems.css("border", "thick solid red");
+
+        //     $('#row1').append(newElems);
+        //     $('#row2').prepend(newElems.clone());
+
+        // });
+
+
+        // $(function () {
+
+        //     var orchidElems = $("<div class='dcell'/>")
+        //         .append("<img src='http://professorweb.ru/downloads/jquery/orchid.png'/>")
+        //         .append("<label for='orchid'>Орхидея:</label>")
+        //         .append("<input name='orchid' value='0' required />");
+
+        //     var lilyElems = $("<div class='dcell'/>")
+        //         .append("<img src='http://professorweb.ru/downloads/jquery/lily.png'/>")
+        //         .append("<label for='lily'>Лилия:</label>")
+        //         .append("<input name='lily' value='0' required />");
+
+        //     $(orchidElems).add(lilyElems).css("border", "thick solid red");
+
+        //     $('div.drow').append(function (index, html) {
+        //         if (this.id == "row1") {
+        //             return orchidElems;
+        //         } else {
+        //             return lilyElems;
+        //         }
+        //     });
+
+        // });
+
+
+        // $(function () {
+
+        //     var newElem = $("<div/>").css("border", "thick solid red");
+        //     $('div.drow').wrap(newElem);
+
+        // });
+
+        // $(function () {
+
+        //     var newElem = $("<div/>").css("border", "thick solid red");
+        //     $('div.drow').wrapAll(newElem);
+
+        // });
+
+        // $(function () {
+
+        //     var newElem = $("<div/>").css("border", "thick solid red");
+        //     $('img').wrapAll(newElem);
+
+        // });
+
+
+        // $(function () {
+
+        //     var newElem = $("<div/>").css("border", "thick solid red");
+        //     $('.dcell').wrapInner(newElem);
+
+        // });
+
+
+        $(function () {
+
+            var orchidElems = $("<div class='dcell'/>")
+                .append("<img src='http://professorweb.ru/downloads/jquery/orchid.png'/>")
+                .append("<label for='orchid'>Орхидея:</label>")
+                .append("<input name='orchid' value='0' required />");
+
+            var lilyElems = $("<div class='dcell'/>")
+                .append("<img src='http://professorweb.ru/downloads/jquery/lily.png'/>")
+                .append("<label for='lily'>Лилия:</label>")
+                .append("<input name='lily' value='0' required />");
+
+            $(orchidElems).add(lilyElems).css("border", "thick solid red");
+
+            $('#row1 div.dcell').after(orchidElems);
+            $('#row2 div.dcell').before(lilyElems);
+
+        });
+
+    </script>
+</head>
+
+<body>
+    <h1>Цветочный магазин</h1>
+    <form method="post">
+        <div id="oblock">
+            <div class="dtable">
+                <div id="row1" class="drow">
+                    <div class="dcell">
+                        <img src="http://professorweb.ru/downloads/jquery/astor.png" />
+                        <label for="astor">Астра:</label>
+                        <input name="astor" value="0" required>
+                    </div>
+                    <div class="dcell">
+                        <img src="http://professorweb.ru/downloads/jquery/daffodil.png" />
+                        <label for="daffodil">Нарцисс:</label>
+                        <input name="daffodil" value="0" required>
+                    </div>
+                    <div class="dcell">
+                        <img src="http://professorweb.ru/downloads/jquery/rose.png" />
+                        <label for="rose">Роза:</label>
+                        <input name="rose" value="0" required>
+                    </div>
+                </div>
+                <div id="row2" class="drow">
+                    <div class="dcell">
+                        <img src="http://professorweb.ru/downloads/jquery/peony.png" />
+                        <label for="peony">Пион:</label>
+                        <input name="peony" value="0" required>
+                    </div>
+                    <div class="dcell">
+                        <img src="http://professorweb.ru/downloads/jquery/primula.png" />
+                        <label for="primula">Примула:</label>
+                        <input name="primula" value="0" required>
+                    </div>
+                    <div class="dcell">
+                        <img src="http://professorweb.ru/downloads/jquery/snowdrop.png" />
+                        <label for="snowdrop">Подснежник:</label>
+                        <input name="snowdrop" value="0" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="buttonDiv">
+            <button type="submit">Заказать</button>
+        </div>
+    </form>
+</body>
+
+</html>

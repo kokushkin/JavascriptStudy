@@ -7,47 +7,59 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="styles.css" />
     <script>
-        // // Обработчик события загрузки страницы
-        // window.onload = function () {
-        //     // Найти все нечетные элементы img в документе,
-        //     // добавить обработчики событий наведения курсора мыши
-        //     // и добавить отладочную информацию на консоль
-        //     var oddImages = document.getElementsByTagName('img');
-        //     for (var i = 0; i < oddImages.length; i++) {
-        //         if (i % 2 != 0) {
-        //             // Для современных браузеров
-        //             if (document.addEventListener) {
-        //                 oddImages[i].addEventListener('mouseover', mouseOverHandler, false);
-        //                 oddImages[i].addEventListener('mouseout', mouseOutHandler, false);
-        //             }
-        //         }
-        //     }
+        $(document).ready(function () {
+            console.log("Сработало событие ready");
 
-        //     // Обработчики событий
-        //     function mouseOverHandler(e) {
-        //         e = e || window.event;
-        //         var target = e.target || e.srcElement;
-        //         target.style.cssText = "opacity:0.5";
-        //         console.log('Вы навели мышь на элемент <img src="' + target.src + '">');
-        //     }
-
-        //     function mouseOutHandler(e) {
-        //         e = e || window.event;
-        //         var target = e.target || e.srcElement;
-        //         target.style.cssText = "opacity:1";
-        //         console.log('Вы убрали мышь с элемента <img src="' + target.src + '">');
-        //     }
-        // };
-
-        $(document).ready(function (e) {
             $("img:odd").mouseenter(function (e) {
                 $(this).css("opacity", 0.5);
-                console.log('Вы навели мышь на элемент <img src="' + $(this).attr('src') + '">');
             }).mouseout(function (e) {
                 $(this).css("opacity", 1.0);
-                console.log('Вы убрали мышь с элемента <img src="' + $(this).attr('src') + '">');
-            });
+            })
+
+            //отображение селектора. selector was deleted in v3!!!
+            var selector = $('img:odd', $('.drow')).selector;
+            console.log("Селектор: " + selector);
+
+
+            //context was deleted in v3!!!
+            // var jq1 = $("img:odd");
+            // console.log("Без контекста: " + jq1.context);
+
+            // var jq2 = $("img:odd", $('.drow'));
+            // console.log("Несколько элементов контекста: " + jq2.context);
+
+            // var jq3 = $("img:odd",
+            //     document.getElementById("oblock"));
+            // console.log("Единственный элемент контекста: " + jq3.context.tagName);
+
+
+
+            //elements enumeration
+            var elems = $('img:odd');
+            for (var i = 0; i < elems.length; i++) {
+                console.log("Элемент: " + elems[i].tagName + " Ссылка: " + elems[i].src);
+            }
+
+            //each enumeration
+            $('img:odd').each(function (index, element) {
+                console.log("Element: " + element.tagName + " Ссылка: " + element.src);
+            })
+
+            var elems = $('body *');
+
+            // Найти индекс с использованием базового DOM API
+            var index = elems.index(document.getElementById("oblock"));
+            console.log("Индекс, найденный с использованием DOM-элемента: " + index);
+
+            // Найти индекс с использованием другого объекта jQuery
+            index = elems.index($('#oblock'));
+            console.log("Индекс, найденный с использованием объекта jQuery: " + index);
         });
+
+
+
+
+
     </script>
 </head>
 
