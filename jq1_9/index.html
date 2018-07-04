@@ -6,43 +6,89 @@
     <title>Библиотека jQuery</title>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="styles.css" />
+    <style type="text/css">
+        img.redBorder {
+            border: thick solid red
+        }
+
+        img.blueBorder {
+            border: thick solid blue
+        }
+
+        .bigFont {
+            font-size: 1.5em
+        }
+    </style>
     <script>
         // $(function () {
-        //     var srcValue = $('img').each(function (index, element) {
-        //         console.log('Значение атрибута src: ' + $(this).attr('src'));
+        //     $('img').addClass("redBorder");
+        //     $('img:even').removeClass("redBorder").addClass("blueBorder");
+        //     console.log("Все элементы: " + $('img').hasClass('redBorder'));
+        //     $('img').each(function (index, elem) {
+        //         console.log("Элемент: " + $(elem).hasClass('redBorder') + " " + elem.src);
         //     });
         // });
-
-        // $(function() {
-
-        //         $('img').attr("src", "http://professorweb.ru/downloads/jquery/lily.png");
-
-        //     });
-
-
-        // $(function() {
-        //     var attrValues = {
-        //         src: 'http://professorweb.ru/downloads/jquery/lily.png',
-        //         style: 'border: thick solid red'
-        //     };
-
-        //     $('img').attr(attrValues);
-        // });
-
 
         // $(function () {
-        //     $('img').attr("style", "border: thick solid red");
-        //     $('img:odd').removeAttr("style");
+        //     $('img').filter(':odd').addClass("redBorder").end()
+        //         .filter(':even').addClass("blueBorder");
+
+        //     $("<button>Переключить</button>").appendTo("#buttonDiv").click(doToggle);
+
+        //     function doToggle(e) {
+        //         $('img').toggleClass("redBorder");
+        //         e.preventDefault();
+        //     };
         // });
 
-        $(function () {
+        // $(function () {
 
-            $('*[class]').each(function (index, elem) {
-                console.log("Элемент:" + elem.tagName + " " + $(elem).prop("className"));
+        //     $('img').filter(':odd').addClass("redBorder").end()
+        //         .filter(':even').addClass("blueBorder");
+
+        //     $("<button>Переключить</button>").appendTo("#buttonDiv").click(doToggle);
+
+        //     function doToggle(e) {
+        //         $('img').toggleClass("redBorder blueBorder");
+        //         e.preventDefault();
+        //     };
+
+        // });
+
+        // $(function () {
+
+        //     $('img').filter(':odd').addClass("redBorder").end()
+        //         .filter(':even').addClass("blueBorder");
+        //     $('label').addClass("bigFont");
+
+        //     $("<button>Переключить</button>").appendTo("#buttonDiv").click(doToggle);
+
+        //     function doToggle(e) {
+        //         $('img, label').toggleClass();
+        //         e.preventDefault();
+        //     };
+
+        // });
+
+        $(function() {
+                
+                $('img').addClass("redBorder");
+                $('img:even').addClass("blueBorder");
+                     
+                $("<button>Переключить</button>").appendTo("#buttonDiv").click(doToggle);
+                
+                function doToggle(e) {
+                    $('img').toggleClass(function(index, currentClasses) {
+                        if (index % 2 == 0) {
+                           return "blueBorder";
+                        } else {
+                    return "";
+                        }
+                    });
+                    e.preventDefault();        
+                };
+                
             });
-
-        });
-
     </script>
 </head>
 
