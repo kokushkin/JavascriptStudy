@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Библиотека jQuery</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <style type="text/css">
+        img.redBorder {
+            border: thick solid red
+        }
+
+        img.blueBorder {
+            border: thick solid blue
+        }
+
+        .bigFont {
+            font-size: 1.5em
+        }
+    </style>
+    <script>
+        // $(function () {
+
+        //     var sizeVal = $('label').css("font-size");
+        //     console.log("Размер шрифта: " + sizeVal);
+        //     $('label').css("font-size", "1.5em").css("color", "blue");
+
+        // });
+
+        // $(function () {
+
+        //     $('label').css("border", function (index, currentValue) {
+        //         if ($(this).closest("#row1").length > 0) {
+        //             return "thick solid red";
+        //         } else if (index % 2 == 1) {
+        //             return "thick double blue";
+        //         }
+        //     });
+
+        // });
+
+        $(function () {
+
+            $('#row1 img').css("border", "thick solid red")
+                .height(function (index, currentValue) {
+                    return (index + 1) * 25;
+                });
+
+        });
+
+    </script>
+</head>
+
+<body>
+    <h1>Цветочный магазин</h1>
+    <form method="post">
+        <div id="oblock">
+            <div class="dtable">
+                <div id="row1" class="drow">
+                    <div class="dcell">
+                        <img src="http://professorweb.ru/downloads/jquery/astor.png" />
+                        <label for="astor">Астра:</label>
+                        <input name="astor" value="0" required>
+                    </div>
+                    <div class="dcell">
+                        <img src="http://professorweb.ru/downloads/jquery/daffodil.png" />
+                        <label for="daffodil">Нарцисс:</label>
+                        <input name="daffodil" value="0" required>
+                    </div>
+                    <div class="dcell">
+                        <img src="http://professorweb.ru/downloads/jquery/rose.png" />
+                        <label for="rose">Роза:</label>
+                        <input name="rose" value="0" required>
+                    </div>
+                </div>
+                <div id="row2" class="drow">
+                    <div class="dcell">
+                        <img src="http://professorweb.ru/downloads/jquery/peony.png" />
+                        <label for="peony">Пион:</label>
+                        <input name="peony" value="0" required>
+                    </div>
+                    <div class="dcell">
+                        <img src="http://professorweb.ru/downloads/jquery/primula.png" />
+                        <label for="primula">Примула:</label>
+                        <input name="primula" value="0" required>
+                    </div>
+                    <div class="dcell">
+                        <img src="http://professorweb.ru/downloads/jquery/snowdrop.png" />
+                        <label for="snowdrop">Подснежник:</label>
+                        <input name="snowdrop" value="0" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="buttonDiv">
+            <button type="submit">Заказать</button>
+        </div>
+    </form>
+</body>
+
+</html>
