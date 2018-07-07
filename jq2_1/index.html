@@ -1,0 +1,170 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Библиотека jQuery</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <style type="text/css">
+        img.redBorder {
+            border: thick solid red
+        }
+
+        img.blueBorder {
+            border: thick solid blue
+        }
+
+        .bigFont {
+            font-size: 1.5em
+        }
+    </style>
+    <script>
+        // $(function () {
+        //     $('img').bind("mouseenter", handleMouseEnter)
+        //         .bind("mouseout", handleMouseOut);
+
+        //     function handleMouseEnter(e) {
+        //         $(this).css({
+        //             "border": "thick solid red",
+        //             "opacity": "0.5"
+        //         });
+        //     }
+
+        //     function handleMouseOut(e) {
+        //         $(this).css({
+        //             "border": "",
+        //             "opacity": ""
+        //         });
+        //     };
+        // });
+
+
+        // $(function () {
+
+        //     $('img:odd').bind("mouseenter mouseout", "red", handleMouse);
+        //     $('img:even').bind("mouseenter mouseout", "blue", handleMouse);
+
+        //     function handleMouse(e) {
+        //         var cssData = {
+        //             "border": "thick solid " + e.data,
+        //         }
+        //         if (event.type == "mouseout") {
+        //             cssData.border = "";
+        //         }
+        //         $(this).css(cssData);
+        //     }
+
+        // });
+
+        // $(function () {
+
+        //     $('img').bind("mouseenter mouseout", handleMouse);
+
+        //     $('img[src*=rose]').unbind("mouseout");
+
+        //     function handleMouse(e) {
+        //         var cssData = {
+        //             "border": "thick solid red",
+        //             "opacity": "0.5"
+        //         }
+        //         if (event.type == "mouseout") {
+        //             cssData.border = "";
+        //             cssData.opacity = "";
+        //         }
+        //         $(this).css(cssData);
+        //     }
+
+        // });
+
+
+
+        // $(function () {
+
+        //     $('img').bind({
+        //         mouseenter: function () {
+        //             $(this).css("border", "thick solid red");
+        //         },
+        //         mouseout: function () {
+        //             $(this).css("border", "");
+        //         }
+        //     });
+
+        //     $("<button>Запустить</button>").appendTo("#buttonDiv").bind("click", function (e) {
+        //         $('#row1 img').trigger("mouseenter");
+        //         e.preventDefault();
+        //     });
+
+        // });
+
+
+        $(function () {
+
+            $('#row1 img').bind("mouseenter", function () {
+                $(this).css("border", "thick solid red");
+            }).bind("mouseout", function () {
+                $(this).css("border", "");
+            });
+
+            $('#row2 img').bind("mouseenter", function (e) {
+                $(this).css("border", "thick solid blue");
+                $('#row1 img').trigger(e);
+            })
+                .bind("mouseout", function (e) {
+                    $(this).css("border", "");
+                    $('#row1 img').trigger(e);
+                });
+
+        });
+
+    </script>
+</head>
+
+<body>
+    <h1>Цветочный магазин</h1>
+    <form method="post">
+        <div id="oblock">
+            <div class="dtable">
+                <div id="row1" class="drow">
+                    <div class="dcell">
+                        <img src="http://professorweb.ru/downloads/jquery/astor.png" />
+                        <label for="astor">Астра:</label>
+                        <input name="astor" value="0" required>
+                    </div>
+                    <div class="dcell">
+                        <img src="http://professorweb.ru/downloads/jquery/daffodil.png" />
+                        <label for="daffodil">Нарцисс:</label>
+                        <input name="daffodil" value="0" required>
+                    </div>
+                    <div class="dcell">
+                        <img src="http://professorweb.ru/downloads/jquery/rose.png" />
+                        <label for="rose">Роза:</label>
+                        <input name="rose" value="0" required>
+                    </div>
+                </div>
+                <div id="row2" class="drow">
+                    <div class="dcell">
+                        <img src="http://professorweb.ru/downloads/jquery/peony.png" />
+                        <label for="peony">Пион:</label>
+                        <input name="peony" value="0" required>
+                    </div>
+                    <div class="dcell">
+                        <img src="http://professorweb.ru/downloads/jquery/primula.png" />
+                        <label for="primula">Примула:</label>
+                        <input name="primula" value="0" required>
+                    </div>
+                    <div class="dcell">
+                        <img src="http://professorweb.ru/downloads/jquery/snowdrop.png" />
+                        <label for="snowdrop">Подснежник:</label>
+                        <input name="snowdrop" value="0" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="buttonDiv">
+            <button type="submit">Заказать</button>
+        </div>
+    </form>
+</body>
+
+</html>
