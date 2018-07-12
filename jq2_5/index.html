@@ -1,0 +1,248 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Библиотека jQuery</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <style type="text/css">
+        img.redBorder {
+            border: thick solid red
+        }
+
+        img.blueBorder {
+            border: thick solid blue
+        }
+
+        .bigFont {
+            font-size: 1.5em
+        }
+    </style>
+    <script>
+        // $(function () {
+
+        //     $('form').css({ "position": "fixed", "top": "70px", "z-index": "2" });
+        //     $('h1').css({ "position": "fixed", "z-index": "1", "min-width": "0" });
+
+        //     var timespan = "slow";
+
+        //     cycleEffects();
+
+        //     function cycleEffects() {
+        //         $('h1')
+        //             .animate({ left: "+=100" }, timespan)
+        //             .animate({ left: "-=100" }, timespan)
+        //             .animate({ height: 223, width: 700 }, timespan)
+        //             .animate({ height: 30, width: 500 }, timespan)
+        //             .slideUp(timespan)
+        //             .slideDown(timespan, cycleEffects);
+        //     }
+
+        // });
+
+
+
+        // $(function () {
+
+        //     $('h1').css({ "position": "fixed", "z-index": "1", "min-width": "0" });
+        //     $('form').remove();
+        //     $('<table border=1></table>')
+        //         .appendTo('body').css({
+        //             position: "fixed", "z-index": "2",
+        //             "border-collapse": "collapse", top: 100
+        //         });
+
+        //     var timespan = "slow";
+
+        //     cycleEffects();
+        //     printQueue();
+
+        //     function cycleEffects() {
+        //         $('h1')
+        //             .animate({ left: "+=100" }, timespan)
+        //             .animate({ left: "-=100" }, timespan)
+        //             .animate({ height: 223, width: 700 }, timespan)
+        //             .animate({ height: 30, width: 500 }, timespan)
+        //             .slideUp(timespan)
+        //             .slideDown(timespan, cycleEffects);
+        //     }
+
+        //     function printQueue() {
+        //         var q = $('h1').queue();
+        //         var qtable = $('table');
+        //         qtable.html("<tr><th>Длина очереди:</th><td>" + q.length + "</td></tr>");
+        //         for (var i = 0; i < q.length; i++) {
+        //             var baseString = "<tr><th>" + i + ":</th><td>";
+        //             if (q[i] == "inprogress") {
+        //                 $('table').append(baseString + "Выполняется</td></tr>");
+        //             } else if (q[i].name == "") {
+        //                 $('table').append(baseString + q[i] + "</td></tr>");
+        //             } else {
+        //                 $('table').append(baseString + q[i].name + "</td></tr>");
+        //             }
+        //         }
+        //         setTimeout(printQueue, 500);
+        //     }
+
+        // });
+
+
+
+
+        // $(function () {
+
+        //     $('h1').css({ "position": "fixed", "z-index": "1", "min-width": "0" });
+        //     $('<table border=1></table>')
+        //         .appendTo('body').css({
+        //             position: "fixed", "z-index": "2",
+        //             "border-collapse": "collapse", top: 100
+        //         });
+
+        //     var timespan = "slow";
+
+        //     cycleEffects();
+        //     printQueue();
+
+        //     function cycleEffects() {
+        //         $('h1')
+        //             .animate({ left: "+=100" }, timespan)
+        //             .animate({ left: "-=100" }, timespan)
+        //             .queue(function (nextFunction) {
+        //                 $('img').fadeTo(timespan, 0).fadeTo(timespan, 1);
+        //                 nextFunction();
+        //             })
+        //             .animate({ height: 223, width: 700 }, timespan)
+        //             .animate({ height: 30, width: 500 }, timespan)
+        //             .slideUp(timespan)
+        //             .slideDown(timespan, cycleEffects);
+        //     }
+
+        //     function printQueue() {
+        //         var q = $('h1').queue();
+        //         var qtable = $('table');
+        //         qtable.html("<tr><th>Длина очереди:</th><td>" + q.length + "</td></tr>");
+        //         for (var i = 0; i < q.length; i++) {
+        //             var baseString = "<tr><th>" + i + ":</th><td>";
+        //             if (q[i] == "inprogress") {
+        //                 $('table').append(baseString + "Выполняется</td></tr>");
+        //             } else if (q[i].name == "") {
+        //                 $('table').append(baseString + q[i] + "</td></tr>");
+        //             } else {
+        //                 $('table').append(baseString + q[i].name + "</td></tr>");
+        //             }
+        //         }
+        //         setTimeout(printQueue, 500);
+        //     }
+
+        // });
+
+
+        $(function () {
+
+            $('h1').css({ "position": "fixed", "z-index": "1", "min-width": "0" });
+            $('<table border=1></table>')
+                .appendTo('body').css({
+                    position: "fixed", "z-index": "2",
+                    "border-collapse": "collapse", top: 100
+                });
+
+            $('<button>Стоп</button><button>Старт</button>')
+                .appendTo($('<div style="margin-top:180px"/>').appendTo("body")
+                    .css({
+                        position: "fixed", "z-index": "2",
+                        "border-collapse": "collapse", top: 100, left: 200
+                    })).click(function (e) {
+                        $(this).text() == "Стоп" ? $('h1').stop(true, true) : cycleEffects();
+                    });
+
+            var timespan = "slow";
+
+            cycleEffects();
+            printQueue();
+
+            function cycleEffects() {
+                $('h1')
+                    .animate({ left: "+=100" }, timespan)
+                    .animate({ left: "-=100" }, timespan)
+                    .queue(function (nextFunction) {
+                        $('img').fadeTo(timespan, 0).fadeTo(timespan, 1);
+                        nextFunction();
+                    })
+                    .animate({ height: 223, width: 700 }, timespan)
+                    .animate({ height: 30, width: 500 }, timespan)
+                    .slideUp(timespan)
+                    .slideDown(timespan, cycleEffects);
+            }
+
+            function printQueue() {
+                var q = $('h1').queue();
+                var qtable = $('table');
+                qtable.html("<tr><th>Длина очереди:</th><td>" + q.length + "</td></tr>");
+                for (var i = 0; i < q.length; i++) {
+                    var baseString = "<tr><th>" + i + ":</th><td>";
+                    if (q[i] == "inprogress") {
+                        $('table').append(baseString + "Выполняется</td></tr>");
+                    } else if (q[i].name == "") {
+                        $('table').append(baseString + q[i] + "</td></tr>");
+                    } else {
+                        $('table').append(baseString + q[i].name + "</td></tr>");
+                    }
+                }
+                setTimeout(printQueue, 500);
+            }
+
+        });
+
+
+    </script>
+</head>
+
+<body>
+    <h1>Цветочный магазин</h1>
+    <form method="post">
+        <div id="oblock">
+            <div class="dtable">
+                <div id="row1" class="drow">
+                    <div class="dcell">
+                        <img src="http://professorweb.ru/downloads/jquery/astor.png" />
+                        <label for="astor">Астра:</label>
+                        <input name="astor" value="0" required>
+                    </div>
+                    <div class="dcell">
+                        <img src="http://professorweb.ru/downloads/jquery/daffodil.png" />
+                        <label for="daffodil">Нарцисс:</label>
+                        <input name="daffodil" value="0" required>
+                    </div>
+                    <div class="dcell">
+                        <img src="http://professorweb.ru/downloads/jquery/rose.png" />
+                        <label for="rose">Роза:</label>
+                        <input name="rose" value="0" required>
+                    </div>
+                </div>
+                <div id="row2" class="drow">
+                    <div class="dcell">
+                        <img src="http://professorweb.ru/downloads/jquery/peony.png" />
+                        <label for="peony">Пион:</label>
+                        <input name="peony" value="0" required>
+                    </div>
+                    <div class="dcell">
+                        <img src="http://professorweb.ru/downloads/jquery/primula.png" />
+                        <label for="primula">Примула:</label>
+                        <input name="primula" value="0" required>
+                    </div>
+                    <div class="dcell">
+                        <img src="http://professorweb.ru/downloads/jquery/snowdrop.png" />
+                        <label for="snowdrop">Подснежник:</label>
+                        <input name="snowdrop" value="0" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="buttonDiv">
+            <button type="submit">Заказать</button>
+        </div>
+    </form>
+</body>
+
+</html>

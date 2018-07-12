@@ -20,70 +20,18 @@
         }
     </style>
     <script>
-        // $(function () {
-
-        //     $("<button>Скрыть</button><button>Показать</button>").appendTo("#buttonDiv")
-        //         .click(function (e) {
-        //             if ($(e.target).text() == "Скрыть") {
-        //                 $('#row1 div.dcell').hide();
-        //             } else {
-        //                 $('#row1 div.dcell').show();
-        //             }
-        //             e.preventDefault();
-        //         });
-
-        // });
-
-        // $(function () {
-
-        //     $("<button>Переключить</button>").appendTo("#buttonDiv")
-        //         .click(function (e) {
-        //             $('img').toggle('fast', 'linear');
-        //             e.preventDefault();
-        //         });
-
-        // });
-
-
-        // $(function () {
-
-        //     var hiddenRow = "#row2";
-        //     var visibleRow = "#row1";
-
-        //     $(hiddenRow).hide();
-
-        //     $("<button>Поменять</button>").insertAfter("#buttonDiv button")
-        //         .click(function (e) {
-        //             $(visibleRow).hide("fast", function () {
-        //                 $(hiddenRow).show("fast", function () {
-        //                     var temp = hiddenRow;
-        //                     hiddenRow = visibleRow;
-        //                     visibleRow = temp;
-        //                 });
-        //             });
-
-        //             e.preventDefault();
-        //         });
-
-        // });
-
-
-        // $(function () {
-
-        //     $("<button>Свернуть развернуть</button>").insertAfter("#buttonDiv button")
-        //         .click(function (e) {
-        //             $('h1').slideToggle("fast");
-        //             e.preventDefault();
-        //         });
-
-        // });
-
-
         $(function () {
 
-            $("<button>Растворить картинки</button>").insertAfter("#buttonDiv button")
+            $('form').css({ "position": "fixed", "top": "70px", "z-index": "2" });
+            $('h1').css({ "position": "fixed", "z-index": "1", "min-width": "0" });
+
+            $("<button>Анимировать</button>").insertAfter("#buttonDiv button")
                 .click(function (e) {
-                    $('img').fadeTo("fast", 0);
+                    $('h1').animate({
+                        height: $('h1').height() + $('form').height() + 10,
+                        width: ($('form').width())
+                    });
+
                     e.preventDefault();
                 });
 

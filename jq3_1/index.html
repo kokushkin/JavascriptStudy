@@ -1,0 +1,214 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="robots" content="none" />
+    <title>Библиотека jQuery</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="jquery.tmpl.min.js"></script>
+    <!-- <script>	
+        $(function () {
+
+            var data = [
+                { name: "Астра", product: "astor", stocklevel: "10", price: 2.99 },
+                { name: "Нарцисс", product: "daffodil", stocklevel: "12", price: 1.99 },
+                { name: "Роза", product: "rose", stocklevel: "2", price: 4.99 },
+                { name: "Пион", product: "peony", stocklevel: "0", price: 1.50 },
+                { name: "Примула", product: "primula", stocklevel: "1", price: 3.12 },
+                { name: "Подснежник", product: "snowdrop", stocklevel: "15", price: 0.99 },
+            ];
+
+            var templResult = $('#flowerTmpl').tmpl(data);
+            templResult.slice(0, 3).appendTo('#row1');
+            templResult.slice(3).appendTo("#row2");
+
+        });
+    </script>
+    <script id="flowerTmpl" type="text/x-jquery-tmpl">
+                <div class="dcell">
+                    <img src="http://professorweb.ru/downloads/jquery/${product}.png"/>
+                    <label for="${product}">${name}:</label>
+                    <input name="${product}" data-price="${price}" data-stock="${stocklevel}"
+                        value="${stocklevel > 0 ? 1: 0}" required />
+                </div>
+    </script> -->
+
+    <!-- <script>	
+        $(function () {
+
+            var data = [
+                { name: "Астра", product: "astor", stocklevel: "10", price: 2.99 },
+                { name: "Нарцисс", product: "daffodil", stocklevel: "12", price: 1.99 },
+                { name: "Роза", product: "rose", stocklevel: "2", price: 4.99 },
+                { name: "Пион", product: "peony", stocklevel: "0", price: 1.50 },
+                { name: "Примула", product: "primula", stocklevel: "1", price: 3.12 },
+                { name: "Подснежник", product: "snowdrop", stocklevel: "15", price: 0.99 },
+            ];
+
+            $("<h2>Специальное предложение на сегодняшний день: " +
+                "<span id=offer data-discount='0.50'>скидка 50 центов</span></h2>")
+                .insertAfter('h1')
+                .css({ color: "red", fontSize: "14pt", textAlign: "center" });
+
+            var options = {
+                discount: $('#offer').data('discount'),
+                stockDisplay: function (product) {
+                    return product.stocklevel > 0 ? 1 : 0;
+                }
+            };
+
+            var template = $('#flowerTmpl');
+            template.tmpl(data.slice(0, 3), options).appendTo("#row1");
+            template.tmpl(data.slice(3), options).appendTo("#row2");
+        });
+    </script>
+    <script id="flowerTmpl" type="text/x-jquery-tmpl">
+                    <div class="dcell">
+                        <img src="http://professorweb.ru/downloads/jquery/${product}.png"/>
+                        <label for="${product}">${name}:</label>
+                        <input name="${product}" 
+                               data-price="${price - $item.discount}"
+                               data-stock="${stocklevel}"
+                               value="${$item.stockDisplay($data)}"
+                               required />
+                    </div>
+    </script> -->
+
+    <script>	
+        $(function () {
+
+            var data = [
+                { name: "Астра", product: "astor", stocklevel: "10", price: 2.99 },
+                { name: "Нарцисс", product: "daffodil", stocklevel: "12", price: 1.99 },
+                { name: "Роза", product: "rose", stocklevel: "2", price: 4.99 },
+                { name: "Пион", product: "peony", stocklevel: "0", price: 1.50 },
+                { name: "Примула", product: "primula", stocklevel: "1", price: 3.12 },
+                { name: "Подснежник", product: "snowdrop", stocklevel: "15", price: 0.99 },
+            ];
+
+            $("<h2>Специальное предложение на сегодняшний день: " +
+                "<span id=offer data-discount='0.50'>скидка 50 центов</span></h2>")
+                .insertAfter('h1')
+                .css({ color: "red", fontSize: "14pt", textAlign: "center" });
+
+            var options = {
+                discount: $('#offer').data('discount'),
+                stockDisplay: function (product) {
+                    return product.stocklevel > 0 ? 1 : 0;
+                }
+            };
+
+            var template = $('#flowerTmpl');
+            template.tmpl(data.slice(0, 3), options).appendTo("#row1");
+            template.tmpl(data.slice(3), options).appendTo("#row2");
+        });
+    </script>
+    <script id="flowerTmpl" type="text/x-jquery-tmpl">
+        {{if stocklevel > 5}}
+		<div class="dcell">
+            <img src="http://professorweb.ru/downloads/jquery/${product}.png"/>
+            <label for="${product}">${name}:</label>
+            <input name="${product}" 
+			       data-price="${price - $item.discount}"
+				   data-stock="${stocklevel}"
+				   value="${$item.stockDisplay($data)}"
+				   required />
+
+        </div>
+    {{else stocklevel > 0}}
+	    <div class="dcell">
+            <img src="http://professorweb.ru/downloads/jquery/${product}.png"/>
+            <label style="color:red" for="${product}">${name}: (Небольшое количество)</label>
+            <input name="${product}" 
+			       data-price="${price - $item.discount}"
+				   data-stock="${stocklevel}"
+				   value="${$item.stockDisplay($data)}"
+				   required />
+
+        </div>
+	{{else}}
+	    <div class="dcell">
+            <img src="http://professorweb.ru/downloads/jquery/${product}.png" style="opacity:0.5"/>
+            <label style="color:grey" for="${product}">${name} (Нет в наличии)</label>
+        </div>
+	{{/if}}
+    </script>
+    <style>
+        h1 {
+            min-width: 70px;
+            border: thick double black;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            font-size: x-large;
+            padding: .5em;
+            color: darkgreen;
+            background-image: url("http://professorweb.ru/downloads/jquery/border.png");
+            background-size: contain;
+            margin-top: 0;
+        }
+
+        .dtable {
+            display: table;
+        }
+
+        .drow {
+            display: table-row;
+        }
+
+        .dcell {
+            display: table-cell;
+            padding: 10px;
+        }
+
+        .dcell>* {
+            vertical-align: middle
+        }
+
+        input {
+            width: 2em;
+            text-align: right;
+            border: thin solid black;
+            padding: 2px;
+        }
+
+        label {
+            width: 6em;
+            padding-left: .5em;
+            display: inline-block;
+        }
+
+        #buttonDiv {
+            text-align: center;
+        }
+
+        button {
+            padding: 12px;
+        }
+
+        #oblock {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            min-width: 700px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Цветочный магазин</h1>
+    <form method="post">
+        <div id="oblock">
+            <div class="dtable">
+                <div id="row1" class="drow"></div>
+                <div id="row2" class="drow"></div>
+            </div>
+        </div>
+        <div id="buttonDiv">
+            <button type="submit">Заказать</button>
+        </div>
+    </form>
+</body>
+
+</html>
