@@ -1,23 +1,23 @@
 <!DOCTYPE HTML>
 <html>
 
-<head> 
+<head>
     <meta charset="utf-8">
     <title>Библиотека jQuery</title>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script>
-    $(function() {
-        $('<button>Ajax</button>').appendTo("#buttonDiv").click(function(e){
-            $.get('flowers.html', function(data){
-                $(data).filter('div').addClass('dcell')
-                    .slice(0, 3).appendTo('#row1').end().end()
-                    .slice(3).appendTo('#row2')
+
+    <script>	
+        $(function () {
+
+            $('<button>Ajax</button>').appendTo('#buttonDiv').click(function (e) {
+                $.getScript("myscript.js");
+                $('#row2').remove();
+
+                e.preventDefault();
             });
 
-            e.preventDefault();
-        })
-    });	
-    </script>
+        });
+    </script> 
 </head>
 
 <body>
@@ -27,6 +27,7 @@
             <div class="dtable">
                 <div id="row1" class="drow"></div>
                 <div id="row2" class="drow"></div>
+                <div id="row3" class="drow"></div>
             </div>
         </div>
         <div id="buttonDiv">

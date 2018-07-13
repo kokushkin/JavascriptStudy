@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+﻿<!DOCTYPE HTML>
 <html>
 
 <head>
@@ -7,49 +7,72 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="jquery.tmpl.min.js"></script>
 
-    <script>	
-        // $(function () {
-
-        //     $('<button>Ajax</button>').appendTo('#buttonDiv').click(function (e) {
-        //         $.get('mydata.json', function (data) {
-        //             var template = $('#flowerTmpl');
-        //             template.tmpl(data.slice(0, 3)).appendTo('#row1');
-        //             template.tmpl(data.slice(3)).appendTo('#row2');
-        //         });
-
-        //         e.preventDefault();
-        //     });
-
-        // });
-
+    <script>	 
         $(function () {
 
-            var requestData = {
-                country: "RU",
-                city: "Moscow"
-            }
+            // При загрузке документа отключаем кнопку отправки формы
+            $('button').get(0).disabled = true;
 
-            $('<button>Ajax</button>').appendTo('#buttonDiv').click(function (e) {
-                $.get('mydata.json', requestData, function (data) {
-                    var template = $('#flowerTmpl');
-                    template.tmpl(data.slice(0, 3)).appendTo('#row1');
-                    template.tmpl(data.slice(3)).appendTo('#row2');
-                });
+            // Загружаем из файла mydata.json базовый код
+            $.getJSON('mydata.json', function (data) {
+                var template = $('#flowerTmpl');
+                template.tmpl(data.slice(0, 3)).appendTo('#row1');
+                template.tmpl(data.slice(3)).appendTo('#row2');
 
-                e.preventDefault();
+                // После построения документа активируем кнопку отправки формы
+                $('button').get(0).disabled = false;
             });
 
-        });
+            // Обработчик клика по кнопке "Заказать"
+            $('button').click(function (e) {
+                // Сериализуем данные формы для отправки серверу
+                var formData = $('form').serialize();
 
+                // Ajax-запрос серверу типа POST
+                $.post('asphandler1.aspx', formData,
+                    function (data) {
+                        // Вызываем вспомогательную функцию
+                        processServerResponse(data);
+                    });
+
+                // Отменяем прямую отправку формы
+                e.preventDefault()
+            });
+
+            function processServerResponse(data) {
+                // Изначально скрываем всю продукцию
+                var inputElems = $('div.dcell').hide();
+
+                for (var prop in data) {
+                    // Отображаем только ту продукцию, заказ которой больше 0
+                    // (в ответе от сервера содержится только такая продукция)
+                    var filtered = inputElems.has('input[name=' + prop + ']')
+                        .appendTo("#row1").show();
+                }
+
+                // Скрываем базовые элементы формы
+                $('#buttonDiv, #totalDiv').remove();
+
+                // Отображаем новые элементы из шаблона totalTmpl
+                $('#totalTmpl').tmpl(data).appendTo('body');
+            }
+
+        });
     </script>
+    <script id="totalTmpl" type="text/x-jquery-tmpl">
+                <div id="totalDiv" style="clear: both; padding: 5px">
+                    <div style="text-align: center">Всего заказов: <span id=total>${total}</span></div>
+                    <div id="buttonDiv"><button type="submit">Заказать</button></div>                    
+                </div>
+        </script>
     <script id="flowerTmpl" type="text/x-jquery-tmpl">
-                    <div class="dcell">
-                        <img src="http://professorweb.ru/downloads/jquery/${product}.png"/>
-                        <label for="${product}">${name}:</label>
-                        <input name="${product}" data-price="${price}" data-stock="${stocklevel}"
-                            value="0" required />
-                    </div>
-    </script>
+                <div class="dcell">
+                    <img src="http://professorweb.ru/downloads/jquery/${product}.png"/>
+                    <label for="${product}">${name}:</label>
+                    <input name="${product}" data-price="${price}" data-stock="${stocklevel}"
+                        value="0" required />
+                </div>
+        </script>
 </head>
 
 <body>
